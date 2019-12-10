@@ -26,8 +26,8 @@ router.post('/notes', (req, res) => {
 router.delete("/notes/:id", (req, res) => {
   fs.readFile(__dirname + './../db/db.json', (err, data) => {
     let index = req.params.id;
-    let mgr = JSON.parse(data)
-    mgr.splice(index, 1)
+    let delNote = JSON.parse(data)
+    delNote.splice(index, 1)
 
     fs.writeFile(__dirname + './../db/db.json', JSON.stringify(mgr), (err) => {
       if (err) throw err;
