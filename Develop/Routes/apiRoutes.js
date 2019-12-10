@@ -16,9 +16,23 @@ router.post('/notes', (req, res) => {
       /* use normal write file to save to db.json */
       fs.writeFile(__dirname + './../db/db.json', JSON.stringify(notes), (err) => {
         if (err) throw err;
-        console.log('note saved');
+        console.log('Saved!');
       });
     });
     res.send('post sent');
+});
+
+// delete
+router.delete("/notes/:id", (req, res) => {
+  fs.readFile(__dirname + './../db/db.json', (err, data) => {
+    let index = req.params.id;
+    let mgr = JSON.parse(data)
+    mgr.splice(index, 1)
+
+    fs.writeFile(__dirname + './../db/db.json', JSON.stringify(mgr), (err) => {
+      if (err) throw err;
+      console.log("Deleted!")
+    });
+  });
 });
 module.exports = router;    
